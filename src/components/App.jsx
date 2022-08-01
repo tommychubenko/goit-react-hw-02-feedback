@@ -9,7 +9,7 @@ class Feedback extends Component {
     bad: 0,
   };
 
-  handleSetFeddback = ({ name }) => {
+  handleSetFeddback = name => {
     this.setState(prev => ({
       [name]: prev[name] + 1,
     }));
@@ -19,21 +19,10 @@ class Feedback extends Component {
     return (
       <div>
         <Controls
-          handleSetFeddback={e => {
-            this.handleSetFeddback(e.target);
-          }}
+          buttons={this.state}
+          handleSetFeddback={this.handleSetFeddback}
         />
-        <p className="stat_label">STATISTICS</p>
-
-        {this.state.good || this.state.neutral || this.state.bad > 0 ? (
-          <AdditionalData
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-          />
-        ) : (
-          <p>No statistics data</p>
-        )}
+        <AdditionalData props={this.state} />
       </div>
     );
   }
